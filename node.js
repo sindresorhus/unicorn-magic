@@ -5,6 +5,10 @@ export function toPath(urlOrPath) {
 	return urlOrPath instanceof URL ? fileURLToPath(urlOrPath) : urlOrPath;
 }
 
+export function rootDirectory(pathInput) {
+	return path.parse(toPath(pathInput)).root;
+}
+
 export function traversePathUp(startPath) {
 	return {
 		* [Symbol.iterator]() {

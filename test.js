@@ -1,3 +1,4 @@
+import process from 'node:process';
 import path from 'node:path';
 import test from 'ava';
 import timeSpan from 'time-span';
@@ -5,6 +6,7 @@ import inRange from 'in-range';
 import {
 	delay,
 	toPath,
+	rootDirectory,
 	traversePathUp,
 } from './node.js';
 
@@ -24,6 +26,14 @@ test('toPath', t => {
 	const fixture = './foo.js';
 	t.is(toPath(new URL(fixture, import.meta.url)), path.resolve(fixture));
 	t.is(toPath(fixture), fixture);
+});
+
+test('rootDirectory', t => {
+	if (process.platform === 'win32') {
+		t.is(rootDirectory('C:\\Users\\Unicorn\\Projects\\Magic'), 'C:\\');
+	} else {
+		t.is(rootDirectory('/Users/Unicorn/Projects/Magic'), '/');
+	}
 });
 
 test('traversePathUp', t => {

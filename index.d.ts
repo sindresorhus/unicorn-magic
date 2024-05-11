@@ -29,11 +29,37 @@ const getUnicornPath = cwd => path.join(toPath(cwd), 'unicorn');
 export function toPath(urlOrPath: URL | string): string;
 
 /**
+Finds the root directory of the given path.
+
+__Not available in browsers.__
+
+On Unix-based systems, the root is always `'/'`.
+On Windows, the root varies and includes the drive letter (e.g., `'C:\\'`).
+
+This function operates purely on paths and does not interact with the file system.
+
+@param path - The path or URL to check.
+@returns The root directory of the path.
+
+@example
+```
+import {rootDirectory} from 'unicorn-magic';
+
+console.log(rootDirectory('/Users/x/y/z'));
+//=> '/'
+
+console.log(rootDirectory('C:\\Users\\x\\y\\z'));
+//=> 'C:\\'
+```
+*/
+export function rootDirectory(path: string | URL): string;
+
+/**
 Creates an iterable for traversing from a given start path up to the root directory.
 
 __Not available in browsers.__
 
-This function operates purely on path strings and does not interact with the file system.
+This function operates purely on paths and does not interact with the file system.
 
 @param startPath - The starting path. Can be relative.
 @returns An iterable that iterates over each parent directory up to the root.
