@@ -1,5 +1,5 @@
 /**
-Delay the promise for the given duration.
+Delays the promise for the given duration.
 
 @example
 ```
@@ -13,9 +13,9 @@ console.log('1 second later');
 export function delay(duration: {seconds: number} | {milliseconds: number}): Promise<void>;
 
 /**
-Convert a `URL` or path to a path.
+Converts a `URL` or path to a path.
 
-**Not available in browsers.**
+__Not available in browsers.__
 
 @example
 ```
@@ -27,3 +27,31 @@ const getUnicornPath = cwd => path.join(toPath(cwd), 'unicorn');
 ```
 */
 export function toPath(urlOrPath: URL | string): string;
+
+/**
+Creates an iterable for traversing from a given start path up to the root directory.
+
+__Not available in browsers.__
+
+This function operates purely on path strings and does not interact with the file system.
+
+@param startPath - The starting path. Can be relative.
+@returns An iterable that iterates over each parent directory up to the root.
+
+Tip: To stop iteration before reaching the root, use a `break` statement within a conditional check.
+
+@example
+```
+import {traversePathUp} from 'unicorn-magic';
+
+for (const directory of traversePathUp('/Users/x/y/z')) {
+	console.log(directory);
+	//=> '/Users/x/y/z'
+	//=> '/Users/x/y'
+	//=> '/Users/x'
+	//=> '/Users'
+	//=> '/'
+}
+```
+*/
+export function traversePathUp(startPath: string | URL): Iterable<string>;

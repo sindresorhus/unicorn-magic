@@ -5,6 +5,7 @@ import inRange from 'in-range';
 import {
 	delay,
 	toPath,
+	traversePathUp,
 } from './node.js';
 
 test.serial('delay - seconds', async t => {
@@ -23,4 +24,17 @@ test('toPath', t => {
 	const fixture = './foo.js';
 	t.is(toPath(new URL(fixture, import.meta.url)), path.resolve(fixture));
 	t.is(toPath(fixture), fixture);
+});
+
+test('traversePathUp', t => {
+	const traversedPaths = [...traversePathUp('/some/nested/directory')];
+
+	const expectedPaths = [
+		'/some/nested/directory',
+		'/some/nested',
+		'/some',
+		'/',
+	];
+
+	t.deepEqual(traversedPaths, expectedPaths);
 });
