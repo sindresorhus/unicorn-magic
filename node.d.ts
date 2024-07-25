@@ -1,16 +1,8 @@
-/**
-Delays the promise for the given duration.
-
-@example
-```
-import {delay} from 'unicorn-magic';
-
-await delay({seconds: 1});
-
-console.log('1 second later');
-```
-*/
-export function delay(duration: {seconds: number} | {milliseconds: number}): Promise<void>;
+import {
+	type ExecFileOptionsWithStringEncoding,
+	type ExecFileSyncOptionsWithStringEncoding,
+	type PromiseWithChild,
+} from 'node:child_process';
 
 /**
 Converts a `URL` or path to a path.
@@ -81,3 +73,53 @@ for (const directory of traversePathUp('/Users/x/y/z')) {
 ```
 */
 export function traversePathUp(startPath: string | URL): Iterable<string>;
+
+/**
+Executes a file.
+
+Same as the built-in `execFile` but with:
+- Promise API
+- 10 MB `maxBuffer` instead of 1 MB
+
+@example
+```
+import {execFile} from 'unicorn-magic';
+
+console.log(await execFile('ls', ['-l']));
+```
+
+__Not available in browsers.__
+*/
+export function execFile(
+	file: string,
+	arguments_: readonly string[],
+	options?: ExecFileOptionsWithStringEncoding
+): PromiseWithChild<{
+	stdout: string;
+	stderr: string;
+}>;
+
+/**
+Executes a file synchronously.
+
+Same as the built-in `execFileSync` but with:
+- String output instead of buffer (same as `execFile`)
+- Does not output `stderr` to the terminal by default (same as `execFile`)
+- 10 MB `maxBuffer` instead of 1 MB
+
+@example
+```
+import {execFileSync} from 'unicorn-magic';
+
+console.log(execFileSync('ls', ['-l']));
+```
+
+__Not available in browsers.__
+*/
+export function execFileSync(
+	file: string,
+	arguments_?: readonly string[],
+	options?: ExecFileSyncOptionsWithStringEncoding
+): string;
+
+export * from './default.js';

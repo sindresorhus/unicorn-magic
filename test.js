@@ -8,6 +8,8 @@ import {
 	toPath,
 	rootDirectory,
 	traversePathUp,
+	execFile,
+	execFileSync,
 } from './node.js';
 
 test.serial('delay - seconds', async t => {
@@ -47,4 +49,15 @@ test('traversePathUp', t => {
 	];
 
 	t.deepEqual(traversedPaths, expectedPaths);
+});
+
+test('execFile', async t => {
+	const {stdout, stderr} = await execFile('echo', ['hello']);
+	t.is(stdout.trim(), 'hello');
+	t.is(stderr, '');
+});
+
+test('execFileSync', t => {
+	const output = execFileSync('echo', ['hello']);
+	t.is(output.trim(), 'hello');
 });
