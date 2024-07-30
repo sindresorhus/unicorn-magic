@@ -22,4 +22,4 @@ console.log('1 second later');
 
 ## API
 
-See the [node types](node.d.ts) and [default types](default.d.ts).
+See the [Node.js types](node.d.ts) and [default types](default.d.ts).
