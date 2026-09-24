@@ -15,16 +15,16 @@
 		".": {
 			"node": {
 				"types": "./node.d.ts",
-				"import": "./node.js"
+				"default": "./node.js"
 			},
 			"default": {
 				"types": "./default.d.ts",
-				"import": "./default.js"
+				"default": "./default.js"
 			}
 		},
 		"./node": {
 			"types": "./node.d.ts",
-			"import": "./node.js"
+			"default": "./node.js"
 		}
 	},
 	"sideEffects": false,
